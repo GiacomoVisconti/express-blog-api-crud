@@ -7,8 +7,20 @@ const posts = require('../data/db');
 
 //Index
 router.get('/', (req, res)=>{
-    // res.send('List of posts');
-    res.json(posts)
+    
+    let filtered_posts = posts
+
+    //filtering posts from tags 
+
+    if(req.query.tag){
+
+        filtered_posts = posts.filter(element => element.tags.includes(req.query.tag))
+        res.json(filtered_posts)
+    }
+
+
+
+    
 })
 
 // Show
