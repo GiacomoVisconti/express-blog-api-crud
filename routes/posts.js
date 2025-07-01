@@ -1,84 +1,27 @@
 
 const express = require('express');
 const router = express.Router();
+const posts_controller = require('../controllers/posts_controller')
 
 // Importing the posts data from db.js
 const posts = require('../data/db');
 
 //Index
-router.get('/', (req, res)=>{
-    
-    let filtered_posts = posts
-
-    //filtering posts from tags 
-
-    if(req.query.tag){
-
-        filtered_posts = posts.filter(element => element.tags.includes(req.query.tag))
-        res.json(filtered_posts)
-    }
-
-
-
-    
-})
+router.get('/', posts_controller.index)
 
 // Show
-router.get('/:id', (req, res) => {
-    const id = parseInt(req.params.id) ;
-
-    const post = posts.find( post => post.id === id)
-
-    if(!post){
-        res.status(404)
-        return res.json({
-            error: 'True',
-            message:`The post with ID: ${id} is not present`
-        })
-    }
-
-    res.json(post)
-})
+router.get('/:id', posts_controller.show)
 
 //Store
-router.post('/', (req, res) => {
-    res.send('Post aggiunti alla lista')
-})
+router.post('/', posts_controller.store)
 
 //Update
-router.put('/:id', (req, res) => {
-    const id = req.params.id;
-    res.send(`Il post con ID: ${id} è stato aggiornato`)
-})
+router.put('/:id', posts_controller.update)
 
 //Modify
-router.patch('/:id', (req, res) => {
-    const id = req.params.id;
-    res.send(`Il post con ID: ${id} è stato modificato`)
-})
+router.patch('/:id', posts_controller.modify)
 
 //Destroy
-router.delete('/:id', (req, res) => {
-    const id = parseInt(req.params.id) ;
-
-    console.log(posts);
-    
-
-    const post = posts.find( post => post.id === id)
-
-    if(!post){
-        res.status(404)
-        return res.json({
-            error: 'True',
-            message:`The post with ID: ${id} is not present`
-        })
-    }
-
-    posts.splice(posts.indexOf(post), 1)
-    console.log(posts);
-    
-    res.sendStatus(204)
-
-})
+router.delete('/:id', posts_controller.destroy)
 module.exports = router;
 
