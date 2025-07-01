@@ -10,10 +10,18 @@ function index(req, res) {
     //filtering posts from tags 
 
     if(req.query.tag){
-
         filtered_posts = posts.filter(element => element.tags.includes(req.query.tag))
+    }
+    
+    if(filtered_posts.length === 0){
+        return res.status(404).json({
+            error: 'True',
+            message: 'No posts found with the specified tag'
+        })  
+    } else {
         res.json(filtered_posts)
     }
+    
 
 
 
