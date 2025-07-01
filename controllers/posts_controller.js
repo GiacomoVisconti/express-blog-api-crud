@@ -18,9 +18,10 @@ function index(req, res) {
             error: 'True',
             message: 'No posts found with the specified tag'
         })  
-    } else {
-        res.json(filtered_posts)
-    }
+    } 
+    
+    res.json(filtered_posts)
+    
     
 
 
