@@ -6,6 +6,7 @@ const post_router = require('./routes/posts.js')
 // Importing the posts data from db.js
 const posts = require('./data/db.js')
 
+app.use(express.json())
 app.use('/api/posts', post_router)
 
 app.listen(port, () => {

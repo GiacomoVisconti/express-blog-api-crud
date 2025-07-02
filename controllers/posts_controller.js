@@ -71,7 +71,31 @@ function destroy(req, res) {
 
 
 function store(req, res) {
-    res.send('Post aggiunti alla lista')
+    
+    console.log(req.body);
+
+    const new_id = posts[posts.length - 1].id + 1
+
+    console.log(new_id);
+    
+    const new_object = {
+        id: new_id,
+        title: req.body.title,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags,
+
+    }
+    
+
+    posts.push(new_object)
+
+    console.log(new_object, posts);
+    
+    
+    res.json(new_object, posts)
+    res.status(201)
+    
     
 }
 
