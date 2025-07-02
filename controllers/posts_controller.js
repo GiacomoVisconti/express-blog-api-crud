@@ -75,8 +75,6 @@ function store(req, res) {
     console.log(req.body);
 
     const new_id = posts[posts.length - 1].id + 1
-
-    console.log(new_id);
     
     const new_object = {
         id: new_id,
@@ -90,19 +88,40 @@ function store(req, res) {
 
     posts.push(new_object)
 
+    res.status(201).send('Elemento aggiunto correttamente')
+
     console.log(new_object, posts);
-    
-    
-    res.json(new_object, posts)
-    res.status(201)
+
     
     
 }
 
 
 function update(req, res) {
-    const id = req.params.id;
-    res.send(`Il post con ID: ${id} è stato aggiornato`)
+    const id = parseInt(req.params.id) ;
+
+    console.log(posts);
+    
+
+    const post = posts.find( post => post.id === id)
+
+    if(!post){
+        res.status(404)
+        return res.json({
+            error: 'True',
+            message:`The post with ID: ${id} is not present`
+        })
+    }
+
+
+    post.title = req.body.title
+    post.content = req.body.content
+    post.image = req.body.image
+    post.tags = req.body.tags
+    res.status(201).send('Elemento modificato correttamente')
+    console.log(posts, post);
+    
+    
 }
 
 
