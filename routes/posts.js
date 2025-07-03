@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const posts_controller = require('../controllers/posts_controller')
+const checkToken = require('../middlewares/checkToken')
 
 // Importing the posts data from db.js
 const posts = require('../data/db');
@@ -13,15 +14,15 @@ router.get('/', posts_controller.index)
 router.get('/:id', posts_controller.show)
 
 //Store
-router.post('/', posts_controller.store)
+router.post('/', checkToken, posts_controller.store)
 
 //Update
-router.put('/:id', posts_controller.update)
+router.put('/:id', checkToken, posts_controller.update)
 
 //Modify
-router.patch('/:id', posts_controller.modify)
+router.patch('/:id', checkToken, posts_controller.modify)
 
 //Destroy
-router.delete('/:id', posts_controller.destroy)
+router.delete('/:id', checkToken, posts_controller.destroy)
 module.exports = router;
 

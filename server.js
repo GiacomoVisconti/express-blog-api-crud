@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const port = 3000
 const post_router = require('./routes/posts.js')
+const dotenv = require('dotenv')
 
 // Importing the posts data from db.js
 const posts = require('./data/db.js')
