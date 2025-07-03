@@ -14,17 +14,17 @@ const errors500handlers = require('./middlewares/error500handler.js')
 app.use(express.json())
 
 // Set the router for the posts API
-app.use('/api/posts', post_router)
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`)
 })
 
-
 app.get('/', (req, res) => {
     // res.json(posts)
     res.send('Post Page')
 })
+
+app.use('/api/posts', post_router)
 
 app.use(error404handler)
 app.use(errors500handlers)

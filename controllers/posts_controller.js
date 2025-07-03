@@ -56,7 +56,7 @@ function destroy(req, res) {
     
     //finding the post with the specified ID
     const post = posts.find( post => post.id === id)
-
+    
     //If the post is not found, return a 404 error
     if(!post){
         res.status(404)
