@@ -6,6 +6,10 @@ const post_router = require('./routes/posts.js')
 // Importing the posts data from db.js
 const posts = require('./data/db.js')
 
+//Importing the middlewares Errors handlers
+const error404handler = require('./middlewares/error404handler.js')
+const errors500handlers = require('./middlewares/error500handler.js')
+
 //Set Body Parser
 app.use(express.json())
 
@@ -22,3 +26,5 @@ app.get('/', (req, res) => {
     res.send('Post Page')
 })
 
+app.use(error404handler)
+app.use(errors500handlers)
